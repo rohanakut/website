@@ -1,0 +1,82 @@
+<html>
+  <style>
+    input {
+        border-top-style: hidden;
+        border-right-style: hidden;
+        border-left-style: hidden;
+        border-bottom-style: groove;
+        background-color: #eee;
+      }
+      
+  </style>
+<form 
+  method="POST" 
+  action="https://script.google.com/macros/s/AKfycbxUuc9uk_KVl2u6o3G_MDIjYTO6pD0X0PPLubJc9sx6ClICt5MtemKBroKe_T2ZeWSy/exec"
+  id="frm"
+ onsubmit="opaque()"
+  
+  >
+<br>
+<div id="loadingGif" style="display:none"><img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif"></div>
+<div id="data">
+  <p>Question: Which audio accurately describes the image?</p>
+  <img  src="./image/image4.jpg" style="display:block;" width="250" height="250"/> 
+<p>Audio 1:</p>
+<audio controls="controls" id="audio1" >
+  <source src="./azure/tts4.mp3" ,type="audio/mpeg", id ="audio1_inside"/>
+</audio>
+<br><p>Audio 2:</p>
+<audio controls="controls" id="audio1" >
+    <source src="./system/tts4.mp3" ,type="audio/mpeg", id ="audio1_inside"/>
+  </audio>
+
+<br>
+<label for="feedback"> Which audio gives a better description for the image?</label><br>
+<input type="radio" id="feedback" name="choice" value="azure" required> Audio 1
+<input type="radio" id="feedback" name="choice" value="system" required> Audio 2<br>
+
+<!-- <img id="bigpic" src="./image/image4.jpg" style="display:none;" width="500" height="500"/> 
+<button onclick="picture()" type="button">View Image</button>  -->
+<button type="submit">Next</button>
+</div>
+</form>
+<script>
+
+
+
+   
+var inputF = document.getElementById("id1");
+function opaque(status){
+  element = document.getElementById("data");
+  element.style.opacity = "0.2";
+  if(status=="done"){
+    document.getElementById('data').style.display = "block";
+  document.getElementById('loadingGif').style.display = "none";
+  }
+  else{
+    document.getElementById('data').style.display = "none";
+  document.getElementById('loadingGif').style.display = "block";
+  }
+}
+var form = document.getElementById('frm');
+        var element;
+        form.addEventListener("submit", e => {
+          e.preventDefault();
+          fetch(form.action, {
+              method : "POST",
+              body: new FormData(document.getElementById("frm")),
+          }).then(
+          
+              response => response.json()
+          ).then((html) => {
+            // you can put any JS code here
+            opaque("done")
+            window.open('page5.html', '_self');
+
+          });
+        });
+        function picture(){ 
+          document.getElementById('bigpic').style.display='block';
+        }
+</script>
+</html>
